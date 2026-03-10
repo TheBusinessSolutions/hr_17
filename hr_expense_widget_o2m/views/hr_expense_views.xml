@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Views activated for group_hr_expense_widget_o2m -->
-    <!-- This view FORCES inline editing (opposite of original module purpose) -->
+    <!-- This view changes the widget from special widgets to standard one2many -->
+    <!-- and removes editable attribute to force form view popup -->
     <record id="view_hr_expense_sheet_form" model="ir.ui.view">
         <field name="name">hr.expense.sheet.form.inherit</field>
         <field name="model">hr.expense.sheet</field>
         <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
         <field name="arch" type="xml">
-            <!-- Force editable tree for inline creation -->
+            <!-- Change widget to standard one2many for users in the group -->
+            <xpath expr="//field[@name='expense_line_ids']" position="attributes">
+                <attribute name="widget" groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m">one2many</attribute>
+            </xpath>
+            <!-- Remove editable attribute to force form view -->
             <xpath expr="//field[@name='expense_line_ids']/tree" position="attributes">
-                <attribute name="editable" groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m">bottom</attribute>
+                <attribute name="editable" groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m"></attribute>
             </xpath>
         </field>
     </record>
