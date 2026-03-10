@@ -1,0 +1,292 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_expense_advance_clearing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"\n"
+"Note: pending amount clearing is %(symbol)s%(amount)s"
+msgstr ""
+"\n"
+"ملاحظة: المبلغ المعلق للتسوية هو %(symbol)s%(amount)s" [cite: 2]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee__advance_count
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_base__advance_count
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_public__advance_count
+msgid "# of Advance"
+msgstr "عدد السلف" [cite: 3]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"A remaining advance return of %(amount)s %(symbol)s with the reference "
+"%(ref)s related to your expense %(name)s has been made."
+msgstr "تم استرداد متبقي سلفة بمبلغ %(amount)s %(symbol)s برقم مرجعي %(ref)s مرتبط بمصروفك %(name)s." [cite: 4]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_account_payment__advance_id
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_employee_public_view_form
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_view_search
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_employee_form
+msgid "Advance"
+msgstr "سلفة" [cite: 5]
+
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
+msgid "Advance (not cleared)"
+msgstr "سلفة (لم تُسوَّ بعد)" [cite: 5]
+
+#: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
+msgid "Advance Clearing"
+msgstr "تسوية السلفة" [cite: 6]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_residual
+msgid "Advance Remaining"
+msgstr "المتبقي من السلفة" [cite: 6]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_employee_base.py:0
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee__advance_sheet_ids
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_base__advance_sheet_ids
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_public__advance_sheet_ids
+#, python-format
+msgid "Advance Sheet"
+msgstr "دفتر السلفة" [cite: 7]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance clearing must not contain any advance expense line"
+msgstr "يجب ألا تحتوي تسوية السلفة على أي بنود سلفة" [cite: 8]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance must contain only advance expense line"
+msgstr "يجب أن تحتوي السلفة على بنود مصروفات السلفة فقط" [cite: 9]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance: %s has no amount to clear"
+msgstr "السلفة: %s ليس لها مبلغ لتسويته" [cite: 10]
+
+#: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_my_hr_advance_sheet
+#: model:ir.ui.menu,name:hr_expense_advance_clearing.menu_my_hr_advance_sheet
+msgid "Advances"
+msgstr "السلف" [cite: 10]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_residual
+msgid "Amount to clear"
+msgstr "المبلغ المراد تسويته" [cite: 11]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_residual
+msgid "Amount to clear of this expense sheet in company currency"
+msgstr "المبلغ المراد تسويته من دفتر المصروفات هذا بعملة الشركة" [cite: 11]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_hr_employee_base
+msgid "Basic Employee"
+msgstr "موظف أساسي" [cite: 12]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_id
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
+msgid "Clear Advance"
+msgstr "تسوية السلفة" [cite: 12]
+
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
+msgid "Clearing"
+msgstr "تسوية" [cite: 12]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_count
+msgid "Clearing Count"
+msgstr "عدد التسويات" [cite: 13]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__clearing_product_id
+msgid "Clearing Product"
+msgstr "منتج التسوية" [cite: 13]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_sheet_ids
+msgid "Clearing Sheet"
+msgstr "دفتر التسوية" [cite: 13]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Clearing Sheets"
+msgstr "دفاتر التسوية" [cite: 14]
+
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
+msgid "Clearings"
+msgstr "التسويات" [cite: 14]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee__advance_count
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee_base__advance_count
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee_public__advance_count
+msgid "Count advance sheet in expense report"
+msgstr "عدد دفاتر السلف في تقرير المصروفات" [cite: 15]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
+msgid "Create a new expense report"
+msgstr "إنشاء تقرير مصروفات جديد" [cite: 16]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__advance
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance
+#: model:product.template,name:hr_expense_advance_clearing.product_emp_advance_product_template
+msgid "Employee Advance"
+msgstr "سلفة موظف" [cite: 16]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance product has no payable account"
+msgstr "منتج سلفة الموظف ليس له حساب دائن" [cite: 17]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, account must be the same payable account"
+msgstr "سلفة موظف، يجب أن يكون الحساب هو نفس حساب الدائنين" [cite: 18]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, all taxes must be removed"
+msgstr "سلفة موظف، يجب إزالة جميع الضرائب" [cite: 19]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, paid by must be employee"
+msgstr "سلفة موظف، يجب أن يكون الدفع بواسطة الموظف" [cite: 20]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, selected product is not valid"
+msgstr "سلفة موظف، المنتج المختار غير صالح" [cite: 21]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_hr_expense
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_view_search
+msgid "Expense"
+msgstr "المصروف" [cite: 21]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_hr_expense_sheet
+msgid "Expense Report"
+msgstr "تقرير المصروفات" [cite: 22]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense__av_line_id
+msgid "Expense created from this advance expense line"
+msgstr "المصروف الذي تم إنشاؤه من بند مصروف السلفة هذا" [cite: 22]
+
+#: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_my_hr_expense_sheet
+#: model:ir.ui.menu,name:hr_expense_advance_clearing.menu_my_hr_expense_sheet
+msgid "Expenses"
+msgstr "المصروفات" [cite: 23]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__amount_payable
+msgid "Final regiter payment amount even after advance clearing"
+msgstr "مبلغ الدفع النهائي المسجل حتى بعد تسوية السلفة" [cite: 23]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_account_move
+msgid "Journal Entry"
+msgstr "قيد يومية" [cite: 24]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_advance_sheet
+msgid "No advance report found. Let's create one!"
+msgstr "لم يتم العثور على تقرير سلف. لنقم بإنشاء واحد!" [cite: 24]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_expense_sheet
+msgid "No expense report found. Let's create one!"
+msgstr "لم يتم العثور على تقرير مصروفات. لنقم بإنشاء واحد!" [cite: 25]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_advance_sheet
+msgid ""
+"Once you have created your advance, submit it to your manager who will "
+"validate it."
+msgstr "بمجرد إنشاء سلفة، أرسلها لمديرك لاعتمادها." [cite: 26]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
+msgid ""
+"Once you have created your expense, submit it to your manager who will\n"
+"                validate it."
+msgstr "بمجرد إنشاء المصروف، أرسله لمديرك\n لاعتماده." [cite: 27]
+
+#: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_expense_sheet
+msgid ""
+"Once you have created your expense, submit it to your manager who will "
+"validate it."
+msgstr "بمجرد إنشاء المصروف، أرسله لمديرك لاعتماده." [cite: 28]
+
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_view_form
+msgid "Optional clearing product is used during clear advance"
+msgstr "يستخدم منتج تسوية اختياري أثناء تسوية السلفة" [cite: 29]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense__clearing_product_id
+msgid ""
+"Optional: On the clear advance, the clearing product will create default "
+"product line."
+msgstr "اختياري: في تسوية السلفة، سيقوم منتج التسوية بإنشاء بند منتج افتراضي." [cite: 30]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__amount_payable
+msgid "Payable Amount"
+msgstr "المبلغ المستحق للدفع" [cite: 31]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_account_payment
+msgid "Payments"
+msgstr "المدفوعات" [cite: 31]
+
+#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__av_line_id
+msgid "Ref: Advance"
+msgstr "المرجع: سلفة" [cite: 31]
+
+#: model:ir.model,name:hr_expense_advance_clearing.model_account_payment_register
+msgid "Register Payment"
+msgstr "تسجيل الدفع" [cite: 32]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_residual
+msgid "Remaining amount to clear the selected advance sheet"
+msgstr "المبلغ المتبقي لتسوية دفتر السلفة المحدد" [cite: 32]
+
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_account_payment_search
+#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
+msgid "Return Advance"
+msgstr "رد سلفة" [cite: 33]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_sheet_ids
+msgid "Show reference clearing on advance"
+msgstr "إظهار مرجع التسوية في السلفة" [cite: 33]
+
+#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_id
+msgid "Show remaining advance of this employee"
+msgstr "إظهار المتبقي من سلفة هذا الموظف" [cite: 34]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/account_move.py:0
+#, python-format
+msgid ""
+"This operation is not allowed as some advance amount was already cleared/returned.\n"
+"Please cancel those documents first."
+msgstr ""
+"هذه العملية غير مسموح بها لأنه تم تسوية/رد جزء من مبلغ السلفة بالفعل.\n"
+"يرجى إلغاء تلك المستندات أولاً." [cite: 35]
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"You cannot return advance more than actual remaining "
+"(%(symbol)s%(amount)s)%(more_info)s"
+msgstr "لا يمكنك رد مبلغ أكبر من المتبقي الفعلي من السلفة (%(symbol)s%(amount)s)%(more_info)s" [cite: 36]

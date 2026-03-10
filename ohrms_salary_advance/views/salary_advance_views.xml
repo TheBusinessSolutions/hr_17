@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--
+    ============================================================
+    Milestone 1 — Allow Multiple Advances
+    Changes vs original:
+      • Added "Total Outstanding Advances" info field in the form
+        so HR and Accounting can see current exposure at a glance.
+      • Added "Advance Amount" column in list view.
+      • No other structural changes — state flow is unchanged.
+    ============================================================
+    -->
+
+    <!-- ================================================================ -->
+    <!--  Form view                                                        -->
+    <!-- ================================================================ -->
+    <record id="salary_advance_view_form" model="ir.ui.view">
+        <field name="name">salary.advance.view.form</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <form string="Salary Advance">
+                <header>
+                    <button name="action_submit_to_manager"
+                            string="Submit"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ('draft',)"/>
+
+                    <button name="approve_request"
+                            string="HR Approve"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ('submit',)"
+                            groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+                    <button name="approve_request_acc_dept"
+                            string="Accounting Approve"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state not in ('waiting_approval',)"
+                            groups="account.group_account_manager,account.group_account_user"/>
+
+                    <button name="action_cancel"
+                            string="Cancel"
+                            type="object"
+                            invisible="state not in ('draft','submit',)"/>
+
+                    <button name="action_reject"
+                            string="Reject"
+                            type="object"
+                            invisible="state not in ('waiting_approval',)"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,submit,waiting_approval,approve"/>
+                </header>
+
+                <sheet>
+                    <!-- Smart buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <!--
+                            Milestone 2 — direct link to the journal entry.
+                            Only shown once accounting has approved and
+                            move_id is set.
+                        -->
+                        <button name="action_open_journal_entry"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-pencil-square-o"
+                                invisible="not move_id"
+                                groups="account.group_account_user,account.group_account_manager">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Journal Entry</span>
+                                <field name="move_id" readonly="1" nolabel="1"/>
+                            </div>
+                        </button>
+                    </div>
+
+                    <!-- Reference number -->
+                    <div class="oe_title oe_left">
+                        <h2>
+                            <field name="name" readonly="1"/>
+                        </h2>
+                    </div>
+
+                    <!--
+                        GL balance banner — shown once the employee is selected
+                        and there is an outstanding balance on the advance
+                        account. This reads the live GL so it always reflects
+                        partial payments and prior payslip deductions.
+                    -->
+                    <div class="alert alert-warning"
+                         role="alert"
+                         invisible="not employee_id or total_outstanding_advance &lt;= 0">
+                        <strong>Outstanding Advance Balance (GL):</strong>
+                        This employee currently has
+                        <field name="total_outstanding_advance"
+                               widget="monetary"
+                               options="{'currency_field': 'currency_id'}"
+                               readonly="1"
+                               nolabel="1"/>
+                        outstanding on the advance account.
+                    </div>
+
+                    <group>
+                        <!-- Left column — employee &amp; request details -->
+                        <group string="Request Details">
+                            <field name="employee_id"
+                                   readonly="state in ('approve','cancel','reject')"/>
+                            <field name="department"
+                                   readonly="1"/>
+                            <field name="employee_contract_id"
+                                   readonly="1"
+                                   invisible="state in ('draft',)"
+                                   groups="hr.group_hr_manager,hr.group_hr_user"/>
+                            <field name="date"
+                                   readonly="state in ('approve','cancel','reject')"/>
+                            <field name="reason"
+                                   readonly="state in ('approve','cancel','reject')"/>
+                        </group>
+
+                        <!-- Right column — amounts &amp; accounting -->
+                        <group string="Amount &amp; Accounting">
+                            <field name="advance"
+                                   readonly="state in ('approve','cancel','reject')"/>
+                            <field name="currency_id"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="base.group_multi_currency"/>
+                            <field name="company_id"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="base.group_multi_currency"/>
+
+                            <!--
+                                exceed_condition: HR managers can tick this to
+                                explicitly allow exceeding the max_percent ceiling
+                                on the salary structure.
+                            -->
+                            <field name="exceed_condition"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="hr.group_hr_manager,hr.group_hr_user"/>
+
+                            <!-- Accounting fields — visible from waiting_approval -->
+                            <field name="debit"
+                                   invisible="state in ('draft','submit')"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="account.group_account_manager"/>
+                            <field name="credit"
+                                   invisible="state in ('draft','submit')"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="account.group_account_manager"/>
+                            <field name="journal"
+                                   invisible="state in ('draft','submit')"
+                                   readonly="state in ('approve','cancel','reject')"
+                                   groups="account.group_account_manager"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!--  List view                                                        -->
+    <!-- ================================================================ -->
+    <record model="ir.ui.view" id="salary_advance_view_tree">
+        <field name="name">salary.advance.view.tree</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <tree string="Salary Advance"
+                  decoration-success="state == 'approve'"
+                  decoration-muted="state in ('cancel','reject')"
+                  decoration-warning="state == 'waiting_approval'">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department"/>
+                <field name="date"/>
+                <field name="advance" sum="Total"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <field name="state"
+                       widget="badge"
+                       decoration-success="state == 'approve'"
+                       decoration-warning="state == 'waiting_approval'"
+                       decoration-danger="state in ('cancel','reject')"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!--  Search view                                                      -->
+    <!-- ================================================================ -->
+    <record id="salary_advance_view_search" model="ir.ui.view">
+        <field name="name">salary.advance.view.search</field>
+        <field name="model">salary.advance</field>
+        <field name="arch" type="xml">
+            <search string="Search Salary Advances">
+                <field name="name" string="Reference"/>
+                <field name="employee_id"/>
+                <field name="state"/>
+
+                <filter string="My Requests"
+                        name="my_requests_filter"
+                        domain="[('employee_id.user_id.id', '=', uid)]"/>
+                <filter string="To Submit"
+                        name="to_report"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="To Approve"
+                        name="submitted"
+                        domain="[('state', 'in', ('submit', 'waiting_approval'))]"/>
+                <filter string="Approved"
+                        name="approved"
+                        domain="[('state', '=', 'approve')]"/>
+                <filter string="Cancelled / Rejected"
+                        name="closed"
+                        domain="[('state', 'in', ('cancel', 'reject'))]"/>
+
+                <separator/>
+
+                <filter string="Employee"
+                        name="group_employee"
+                        domain="[]"
+                        context="{'group_by': 'employee_id'}"/>
+                <filter string="State"
+                        name="group_state"
+                        domain="[]"
+                        context="{'group_by': 'state'}"/>
+                <filter string="Date"
+                        name="group_date"
+                        domain="[]"
+                        context="{'group_by': 'date'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!--  Window actions                                                   -->
+    <!-- ================================================================ -->
+
+    <!-- Employee's own requests -->
+    <record id="salary_advance_own_action" model="ir.actions.act_window">
+        <field name="name">My Salary Advances</field>
+        <field name="res_model">salary.advance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="salary_advance_view_search"/>
+        <field name="context">{'search_default_my_requests_filter': 1}</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to request a salary advance.
+            </p>
+        </field>
+    </record>
+
+    <!-- Employee's own approved advances -->
+    <record id="salary_advance_own_request_approved_action" model="ir.actions.act_window">
+        <field name="name">My Approved Advances</field>
+        <field name="res_model">salary.advance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="salary_advance_view_search"/>
+        <field name="context">{'search_default_approved': 1}</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+    </record>
+
+    <!-- All advances pending approval — HR and Accounting -->
+    <record id="salary_advance_to_approve_action" model="ir.actions.act_window">
+        <field name="name">Salary Advances to Approve</field>
+        <field name="res_model">salary.advance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="salary_advance_view_search"/>
+        <field name="context">{'search_default_submitted': 1}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                No advances awaiting approval.
+            </p>
+        </field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!--  Menu items                                                       -->
+    <!-- ================================================================ -->
+    <menuitem id="salary_advance_menu_root"
+              name="Advance"
+              parent="ohrms_loan.hr_loan_menu_root"
+              sequence="7"/>
+
+    <menuitem id="salary_advance_menu_own"
+              name="Request Salary Advance"
+              parent="salary_advance_menu_root"
+              action="salary_advance_own_action"
+              sequence="1"/>
+
+    <menuitem id="salary_advance_menu_my_approved"
+              name="My Approved Advances"
+              parent="salary_advance_menu_root"
+              action="salary_advance_own_request_approved_action"
+              sequence="2"/>
+
+    <menuitem id="salary_advance_menu_to_approve"
+              name="Salary Advances to Approve"
+              parent="salary_advance_menu_root"
+              action="salary_advance_to_approve_action"
+              sequence="3"
+              groups="hr.group_hr_manager,hr.group_hr_user,account.group_account_manager"/>
+
+</odoo>
