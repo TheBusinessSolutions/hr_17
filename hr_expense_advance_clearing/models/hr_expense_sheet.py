@@ -179,6 +179,21 @@ class HrExpenseSheet(models.Model):
                 "av_line_id": line.id,
             })
 
+    def open_clear_advance(self):
+        """Button action called from form view"""
+        self.ensure_one()
+        action = self.env.ref(
+            "hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing"
+        )
+        vals = action.sudo().read()[0]
+        context1 = vals.get("context", {})
+        if context1:
+            context1 = safe_eval(context1)
+        context1["default_advance_sheet_id"] = self.id
+        context1["default_employee_id"] = self.employee_id.id
+        vals["context"] = context1
+        return vals
+
     def action_open_clearings(self):
         self.ensure_one()
         return {
