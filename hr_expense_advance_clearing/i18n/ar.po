@@ -40,9 +40,7 @@ msgstr "# العهده"
 msgid ""
 "A remaining advance return of %(amount)s %(symbol)s with the reference %(ref)s related to your expense "
 "%(name)s has been made."
-msgstr ""
-"A remaining advance return of %(amount)s %(symbol)s with the reference %(ref)s related to your expense "
-"%(name)s has been made."
+msgstr "تم استرداد متبقي سلفة بمبلغ %(amount)s %(symbol)s برقم مرجعي %(ref)s مرتبط بمصروفك %(name)s."
 
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_account_payment__advance_id
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_employee_public_view_form
