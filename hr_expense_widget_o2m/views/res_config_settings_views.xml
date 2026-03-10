@@ -6,7 +6,7 @@
         <field name="priority" eval="95" />
         <field name="inherit_id" ref="hr_expense.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//app[@name='hr_expense']//setting[last()]" position="after">
+            <xpath expr="//div[@id='hr_expense_settings']" position="inside">
                 <setting id="expense_widget_o2m_settings" string="Use form view when add line for expense report" help="Enable the O2M widget for expenses">
                     <field name="group_hr_expense_widget_o2m" />
                 </setting>
