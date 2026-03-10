@@ -208,6 +208,35 @@ class HrExpenseSheet(models.Model):
             move_line_vals.extend(move_line_values)
         return move_line_vals
 
+    def _get_clearing_journal(self):
+        """Get the appropriate journal for advance clearing entries.
+        
+        Priority order:
+        1. Journal set on the Employee Advance product's Expense Journal field
+        2. Miscellaneous/General journal (type 'general')
+        3. First available journal
+        """
+        self.ensure_one()
+        emp_advance = self._get_product_advance()
+        
+        # Try to get journal from product configuration
+        if emp_advance and emp_advance.property_journal_id:
+            return emp_advance.property_journal_id
+        
+        # Otherwise, find a general/miscellaneous journal
+        general_journal = self.env['account.journal'].search([
+            ('type', '=', 'general'),
+            ('company_id', '=', self.company_id.id),
+        ], limit=1)
+        
+        if general_journal:
+            return general_journal
+        
+        # Fallback to any available journal
+        return self.env['account.journal'].search([
+            ('company_id', '=', self.company_id.id),
+        ], limit=1)
+
     def _prepare_bills_vals(self):
         """create journal entry instead of bills when clearing document"""
         self.ensure_one()
@@ -219,7 +248,10 @@ class HrExpenseSheet(models.Model):
                 raise ValidationError(
                     _("Advance: %s has no amount to clear") % (self.name)
                 )
+            # Set as journal entry and use appropriate journal
             res["move_type"] = "entry"
+            clearing_journal = self._get_clearing_journal()
+            res["journal_id"] = clearing_journal.id
             move_line_vals = self._get_move_line_vals()
             res["line_ids"] = [Command.create(x) for x in move_line_vals]
         return res

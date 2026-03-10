@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Allow any journal type for expense sheets -->
+    <record id="view_hr_expense_sheet_form_journal_domain" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.form.journal.domain</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="arch" type="xml">
+            <!-- Remove journal type restriction - allow any journal type -->
+            <xpath expr="//field[@name='journal_id']" position="attributes">
+                <attribute name="domain">[('company_id', '=', company_id)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
