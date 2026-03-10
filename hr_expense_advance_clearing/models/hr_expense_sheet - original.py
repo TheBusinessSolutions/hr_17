@@ -9,14 +9,6 @@ from odoo.tools.safe_eval import safe_eval
 
 class HrExpenseSheet(models.Model):
     _inherit = "hr.expense.sheet"
-    #remove the domain restritction:
-    employee_journal_id = fields.Many2one(
-        "account.journal",
-        string="Journal",
-        default=lambda self: self._default_journal_id(),
-        check_company=True,
-        domain="[('company_id', '=', company_id)]",
-    )
 
     advance = fields.Boolean(
         string="Employee Advance",
