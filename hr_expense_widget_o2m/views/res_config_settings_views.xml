@@ -6,7 +6,7 @@
         <field name="priority" eval="90"/>
         <field name="inherit_id" ref="hr_expense.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//app[@name='hr_expense']/block[@title='Accounting']" position="after">
+            <xpath expr="//app[@name='hr_expense']/block[last()]" position="after">
                 <block title="Extra Expense Settings">
                     <setting id="expense_widget_o2m_settings" 
                              string="Use form view when add line for expense report"
