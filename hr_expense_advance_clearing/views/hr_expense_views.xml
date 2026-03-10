@@ -226,7 +226,7 @@
                 >{'default_advance': advance, 'search_default_is_advance': advance, 'search_default_is_expense': not advance, 'form_view_ref' : 'hr_expense.hr_expense_view_form_without_header', 'default_company_id': company_id, 'default_employee_id': employee_id}</attribute>
                 <attribute
                     name="readonly"
-                >not id and advance_sheet_id != False</attribute>
+                >state not in ['draft', 'submit']</attribute>
                 <attribute name="force_save">True</attribute>
             </xpath>
             <xpath
