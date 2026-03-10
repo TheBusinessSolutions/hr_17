@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Views activated for group_hr_expense_widget_o2m -->
+    <!-- When enabled, this view removes the special 'section' or 'expense_tree' widget -->
+    <!-- and uses the standard one2many widget, which opens a form view instead of inline editing -->
     <record id="view_hr_expense_sheet_form" model="ir.ui.view">
         <field name="name">hr.expense.sheet.form.inherit</field>
         <field name="model">hr.expense.sheet</field>
         <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='expense_line_ids']" position="attributes">
-                <attribute name="widget" groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m">one2many</attribute>
+            <!-- Replace the widget attribute to use standard one2many (opens form view) -->
+            <xpath expr="//field[@name='expense_line_ids']" position="replace">
+                <field name="expense_line_ids" 
+                       groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m"
+                       context="{'default_employee_id': employee_id}">
+                    <tree string="Expenses">
+                        <field name="name"/>
+                        <field name="employee_id" invisible="1"/>
+                        <field name="product_id"/>
+                        <field name="date"/>
+                        <field name="total_amount" sum="Total"/>
+                        <field name="state" widget="badge"/>
+                    </tree>
+                </field>
             </xpath>
-            <xpath expr="//field[@name='expense_line_ids']/tree" position="attributes">
-                <attribute name="editable" groups="hr_expense_widget_o2m.group_hr_expense_widget_o2m"/>
+            <!-- For users NOT in the group, keep the original view (with widget) -->
+            <xpath expr="//field[@name='expense_line_ids']" position="after">
+                <field name="expense_line_ids" 
+                       groups="!hr_expense_widget_o2m.group_hr_expense_widget_o2m"
+                       widget="section_one2many"
+                       context="{'default_employee_id': employee_id}">
+                    <tree string="Expenses" editable="bottom">
+                        <field name="name"/>
+                        <field name="employee_id" invisible="1"/>
+                        <field name="product_id"/>
+                        <field name="date"/>
+                        <field name="total_amount" sum="Total"/>
+                        <field name="state" widget="badge"/>
+                    </tree>
+                </field>
             </xpath>
         </field>
     </record>
