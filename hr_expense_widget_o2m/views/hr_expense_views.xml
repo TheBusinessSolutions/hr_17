@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Views activated for group_hr_expense_widget_o2m -->
+    <!-- Views activated for group_hr_expense_widget_o2m add line-->
     <!-- This view changes the widget from special widgets to standard one2many -->
     <!-- and removes editable attribute to force form view popup -->
     <record id="view_hr_expense_sheet_form" model="ir.ui.view">
