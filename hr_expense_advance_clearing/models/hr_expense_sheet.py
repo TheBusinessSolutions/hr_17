@@ -354,18 +354,12 @@ class HrExpenseSheet(models.Model):
         """Get the appropriate journal for advance clearing entries.
         
         Priority order:
-        1. Journal set on the Employee Advance product's Expense Journal field
-        2. Miscellaneous/General journal (type 'general')
-        3. First available journal
+        1. Miscellaneous/General journal (type 'general')
+        2. First available journal
         """
         self.ensure_one()
-        emp_advance = self._get_product_advance()
         
-        # Try to get journal from product configuration
-        if emp_advance and emp_advance.property_journal_id:
-            return emp_advance.property_journal_id
-        
-        # Otherwise, find a general/miscellaneous journal
+        # Find a general/miscellaneous journal
         general_journal = self.env['account.journal'].search([
             ('type', '=', 'general'),
             ('company_id', '=', self.company_id.id),
