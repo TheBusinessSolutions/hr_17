@@ -2,13 +2,14 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import Command, _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo.tools import float_compare, float_is_zero
 from odoo.tools.safe_eval import safe_eval
 
 
 class HrExpenseSheet(models.Model):
     _inherit = "hr.expense.sheet"
+    
     # Remove domain restriction and allow custom journal
     employee_journal_id = fields.Many2one(
         "account.journal",
@@ -17,7 +18,6 @@ class HrExpenseSheet(models.Model):
         check_company=True,
         domain="[('company_id', '=', company_id)]",
     )
-
 
     advance = fields.Boolean(
         string="Employee Advance",
@@ -54,7 +54,22 @@ class HrExpenseSheet(models.Model):
     amount_payable = fields.Monetary(
         string="Payable Amount",
         compute="_compute_amount_payable",
-        help="Final regiter payment amount even after advance clearing",
+        help="Final register payment amount even after advance clearing",
+    )
+    
+    # NEW FIELDS FOR NEW WORKFLOW
+    advance_payment_journal_id = fields.Many2one(
+        comodel_name='account.journal',
+        string="Payment Source (Bank/Cash)",
+        domain="[('company_id', '=', company_id), ('type', 'in', ['bank', 'cash'])]",
+        help="Select the bank or cash journal for the advance payment",
+        copy=False,
+    )
+    advance_confirmed = fields.Boolean(
+        string="Advance Confirmed",
+        default=False,
+        copy=False,
+        help="Indicates if advance has been confirmed by finance",
     )
 
     @api.constrains("advance_sheet_id", "expense_line_ids")
@@ -107,8 +122,126 @@ class HrExpenseSheet(models.Model):
         for sheet in self:
             sheet.clearing_count = len(sheet.clearing_sheet_ids)
 
+    # NEW METHOD: Confirm advance (replaces Post Journal Entries for advances)
+    def action_confirm_advance(self):
+        """Confirm the advance - no journal entry created yet"""
+        self.ensure_one()
+        if not self.advance:
+            raise UserError(_("This action is only for employee advances"))
+        if self.state != 'approve':
+            raise UserError(_("Only approved advances can be confirmed"))
+        
+        # Mark as confirmed
+        self.write({'advance_confirmed': True})
+        return True
+
+    # NEW METHOD: Pay advance - creates journal entry directly
+    def action_pay_advance(self):
+        """Create payment and journal entry for advance"""
+        self.ensure_one()
+        
+        if not self.advance:
+            raise UserError(_("This action is only for employee advances"))
+        
+        if not self.advance_confirmed:
+            raise UserError(_("Please confirm the advance first"))
+        
+        if not self.advance_payment_journal_id:
+            raise UserError(_("Please select a payment source (Bank/Cash)"))
+        
+        # Create the journal entry directly
+        move = self._create_advance_payment_entry()
+        
+        # Post the move
+        move.action_post()
+        
+        # Update state
+        self.write({'state': 'done', 'payment_state': 'paid'})
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Payment Entry'),
+            'res_model': 'account.move',
+            'res_id': move.id,
+            'view_mode': 'form',
+            'views': [(False, 'form')],
+        }
+
+    def _create_advance_payment_entry(self):
+        """Create journal entry for advance payment
+        Debit: Employee Advance Account (from expense line)
+        Credit: Bank/Cash Account (from payment journal)
+        """
+        self.ensure_one()
+        
+        emp_advance = self._get_product_advance()
+        if not emp_advance or not emp_advance.property_account_expense_id:
+            raise UserError(_("Employee Advance product has no expense account configured"))
+        
+        advance_account = emp_advance.property_account_expense_id
+        payment_account = self.advance_payment_journal_id.default_account_id
+        
+        if not payment_account:
+            raise UserError(_("Payment journal %s has no default account") % self.advance_payment_journal_id.name)
+        
+        # Prepare move lines
+        partner_id = self.employee_id.sudo().work_contact_id.id
+        move_lines = []
+        
+        # Debit: Employee Advance
+        move_lines.append(Command.create({
+            'name': _('Employee Advance: %s') % self.employee_id.name,
+            'account_id': advance_account.id,
+            'partner_id': partner_id,
+            'debit': self.total_amount,
+            'credit': 0.0,
+            'currency_id': self.currency_id.id,
+        }))
+        
+        # Credit: Bank/Cash
+        move_lines.append(Command.create({
+            'name': _('Advance Payment: %s') % self.name,
+            'account_id': payment_account.id,
+            'partner_id': partner_id,
+            'debit': 0.0,
+            'credit': self.total_amount,
+            'currency_id': self.currency_id.id,
+        }))
+        
+        # Create the move
+        move_vals = {
+            'name': '/',
+            'journal_id': self.advance_payment_journal_id.id,
+            'date': fields.Date.context_today(self),
+            'ref': self.name,
+            'move_type': 'entry',
+            'expense_sheet_id': self.id,
+            'line_ids': move_lines,
+        }
+        
+        move = self.env['account.move'].create(move_vals)
+        return move
+
     def action_sheet_move_create(self):
+        """Override to prevent creating moves for unconfirmed advances"""
+        # For advances, skip the normal flow if using new workflow
+        if self.advance and not self.advance_sheet_id:
+            # This is an advance payment - use new workflow
+            if not self.advance_confirmed:
+                raise UserError(_(
+                    "For advances, please use 'Confirm Advance' button first, "
+                    "then select payment source and use 'Pay Advance' button"
+                ))
+            # If confirmed but not paid yet, show error
+            if not self.account_move_ids:
+                raise UserError(_(
+                    "Please use 'Pay Advance' button to create the payment entry"
+                ))
+        
+        # For clearings and regular expenses, continue with normal flow
         res = super().action_sheet_move_create()
+        
+        # Handle clearing reconciliation
         for sheet in self:
             if not sheet.advance_sheet_id:
                 continue
@@ -247,7 +380,7 @@ class HrExpenseSheet(models.Model):
         ], limit=1)
 
     def _prepare_bills_vals(self):
-        """create journal entry instead of bills when clearing document or advance"""
+        """create journal entry instead of bills when clearing document"""
         self.ensure_one()
         res = super()._prepare_bills_vals()
         
@@ -265,13 +398,6 @@ class HrExpenseSheet(models.Model):
             res["journal_id"] = clearing_journal.id
             move_line_vals = self._get_move_line_vals()
             res["line_ids"] = [Command.create(x) for x in move_line_vals]
-        
-        # For advance creation (is advance itself, not clearing)
-        elif self.advance and self.payment_mode == "own_account":
-            # Create journal entry instead of vendor bill for advances
-            res["move_type"] = "entry"
-            clearing_journal = self._get_clearing_journal()
-            res["journal_id"] = clearing_journal.id
         
         return res
 
