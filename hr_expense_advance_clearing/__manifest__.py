@@ -16,6 +16,7 @@
         "views/hr_employee_views.xml",
         "views/hr_employee_public_views.xml",
         #"views/hr_expense_sheet_journal_view.xml",
+        "views/hr_expense_views_new_workflow.xml",
     ],
     "installable": True,
     "maintainers": ["kittiu"],

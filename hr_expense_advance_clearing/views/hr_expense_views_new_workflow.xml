@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- New workflow for advances: Confirm -> Select Payment Source -> Pay -->
+    <record id="view_hr_expense_sheet_form_advance_workflow" model="ir.ui.view">
+        <field name="name">hr.expense.sheet.form.advance.workflow</field>
+        <field name="model">hr.expense.sheet</field>
+        <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+        <field name="priority" eval="99"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add advance field as invisible (needed for conditions) -->
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="advance" invisible="1"/>
+            </xpath>
+            
+            <!-- Hide "Post Journal Entries" button for advances -->
+            <xpath expr="//button[@name='action_sheet_move_create']" position="attributes">
+                <attribute name="invisible">advance or state != 'approve'</attribute>
+            </xpath>
+            
+            <!-- Add new buttons for advance workflow -->
+            <xpath expr="//button[@name='action_sheet_move_create']" position="after">
+                <!-- Confirm Advance button (replaces Post Journal Entries for advances) -->
+                <button name="action_confirm_advance" 
+                        string="Confirm Advance" 
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="not advance or state != 'approve' or advance_confirmed"
+                        groups="account.group_account_invoice"
+                        data-hotkey="y"/>
+                
+                <!-- Pay Advance button (creates journal entry and payment) -->
+                <button name="action_pay_advance" 
+                        string="Pay Advance" 
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="not advance or not advance_confirmed or state == 'done'"
+                        groups="account.group_account_invoice"
+                        data-hotkey="p"/>
+            </xpath>
+            
+            <!-- Add payment source field after employee_journal_id -->
+            <xpath expr="//field[@name='employee_journal_id']" position="after">
+                <field name="advance_confirmed" invisible="1"/>
+                <field name="advance_payment_journal_id" 
+                       invisible="not advance or not advance_confirmed or state == 'done'"
+                       required="advance and advance_confirmed and state != 'done'"
+                       options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>
