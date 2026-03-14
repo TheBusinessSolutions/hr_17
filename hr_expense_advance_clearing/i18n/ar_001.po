@@ -6,26 +6,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-11 15:20+0000\n"
-"PO-Revision-Date: 2026-03-11 17:24+0200\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && "
+"n%100<=99 ? 4 : 5);\n"
 "X-Generator: Poedit 3.8\n"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"\n"
+"Note: pending amount clearing is %(symbol)s%(amount)s"
+msgstr ""
+"\n"
+"ملاحظات: مبلغ العهده المتبقي هو %(symbol)s%(amount)s"
+
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee__advance_count
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_base__advance_count
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_public__advance_count
 msgid "# of Advance"
 msgstr "# العهده"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid ""
+"A remaining advance return of %(amount)s %(symbol)s with the reference %(ref)s related to your expense "
+"%(name)s has been made."
+msgstr "تم استرداد متبقي عهده بمبلغ %(amount)s %(symbol)s برقم مرجعي %(ref)s مرتبط بمصروفك %(name)s."
+
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_account_payment__advance_id
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_employee_public_view_form
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
@@ -34,169 +50,177 @@ msgstr "# العهده"
 msgid "Advance"
 msgstr "عهده"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
 msgid "Advance (not cleared)"
 msgstr "عهده (لم تُسوَّ بعد)"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
 msgid "Advance Clearing"
 msgstr "تسوية العهده"
 
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_confirmed
-msgid "Advance Confirmed"
-msgstr "تم تأكيد العهده"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_residual
 msgid "Advance Remaining"
 msgstr "المتبقي من العهده"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_employee_base.py:0
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee__advance_sheet_ids
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_base__advance_sheet_ids
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_employee_public__advance_sheet_ids
+#, python-format
 msgid "Advance Sheet"
 msgstr "دفتر العهده"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance clearing must not contain any advance expense line"
+msgstr "يجب ألا تحتوي تسوية العهده على أي بنود عهده"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance must contain only advance expense line"
+msgstr "يجب أن تحتوي العهده على بنود مصروفات العهده فقط"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Advance: %s has no amount to clear"
+msgstr "العهده: %s ليس لها مبلغ لتسويته"
+
 #: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_my_hr_advance_sheet
 #: model:ir.ui.menu,name:hr_expense_advance_clearing.menu_my_hr_advance_sheet
 msgid "Advances"
 msgstr "العهد"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_residual
 msgid "Amount to clear"
 msgstr "المبلغ المراد تسويته"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_residual
 msgid "Amount to clear of this expense sheet in company currency"
 msgstr "المبلغ المراد تسويته من دفتر المصروفات هذا بعملة الشركة"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model,name:hr_expense_advance_clearing.model_hr_employee_base
 msgid "Basic Employee"
-msgstr "الموظف الاساسي"
+msgstr "موظف أساسي"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_id
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
 msgid "Clear Advance"
 msgstr "تسوية العهده"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_sheet_view_search
 msgid "Clearing"
 msgstr "تسوية"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_count
 msgid "Clearing Count"
 msgstr "عدد التسويات"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__clearing_product_id
 msgid "Clearing Product"
 msgstr "منتج التسوية"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_sheet_ids
 msgid "Clearing Sheet"
 msgstr "دفتر التسوية"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense_sheet.py:0
+#, python-format
+msgid "Clearing Sheets"
+msgstr "دفاتر التسوية"
+
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
 msgid "Clearings"
 msgstr "التسويات"
 
-#. module: hr_expense_advance_clearing
-#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form_advance_workflow
-msgid "Confirm Advance"
-msgstr "تأكيد العهده"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee__advance_count
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee_base__advance_count
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_employee_public__advance_count
 msgid "Count advance sheet in expense report"
 msgstr "عدد دفاتر العهده   المصروفات"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
 msgid "Create a new expense report"
 msgstr "إنشاء تقرير مصروفات جديد"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__advance
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance
 #: model:product.template,name:hr_expense_advance_clearing.product_emp_advance_product_template
 msgid "Employee Advance"
 msgstr "عهده موظف"
 
-#. module: hr_expense_advance_clearing
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance product has no payable account"
+msgstr "منتج عهده الموظف ليس له حساب دائن"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, account must be the same payable account"
+msgstr "عهده موظف، يجب أن يكون الحساب هو نفس حساب الدائنين"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, all taxes must be removed"
+msgstr "عهده موظف، يجب إزالة جميع الضرائب"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, paid by must be employee"
+msgstr "عهده موظف، يجب أن يكون الدفع بواسطة الموظف"
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/hr_expense.py:0
+#, python-format
+msgid "Employee advance, selected product is not valid"
+msgstr "عهده موظف، المنتج المختار غير صالح"
+
 #: model:ir.model,name:hr_expense_advance_clearing.model_hr_expense
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_view_search
 msgid "Expense"
-msgstr "النفقة"
+msgstr "المصروف"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model,name:hr_expense_advance_clearing.model_hr_expense_sheet
 msgid "Expense Report"
-msgstr "تقرير النفقات"
+msgstr "تقرير المصروفات"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense__av_line_id
 msgid "Expense created from this advance expense line"
 msgstr "المصروف الذي تم إنشاؤه من بند مصروف العهده هذا"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.actions.act_window,name:hr_expense_advance_clearing.action_my_hr_expense_sheet
 #: model:ir.ui.menu,name:hr_expense_advance_clearing.menu_my_hr_expense_sheet
 msgid "Expenses"
 msgstr "المصروفات"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__amount_payable
-msgid "Final register payment amount even after advance clearing"
+msgid "Final regiter payment amount even after advance clearing"
 msgstr "مبلغ الدفع النهائي المسجل حتى بعد تسوية العهده"
 
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_confirmed
-msgid "Indicates if advance has been confirmed by finance"
-msgstr "هل تم الموافقه من الحسابات"
-
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__employee_journal_id
-msgid "Journal"
-msgstr "دفتر اليومية"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model,name:hr_expense_advance_clearing.model_account_move
 msgid "Journal Entry"
-msgstr "قيد اليومية"
+msgstr "قيد يومية"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_advance_sheet
 msgid "No advance report found. Let's create one!"
 msgstr "لم يتم العثور على تقرير عهد. لنقم بإنشاء واحد!"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_expense_sheet
 msgid "No expense report found. Let's create one!"
 msgstr "لم يتم العثور على تقرير مصروفات. لنقم بإنشاء واحد!"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_advance_sheet
-msgid ""
-"Once you have created your advance, submit it to your manager who will "
-"validate it."
+msgid "Once you have created your advance, submit it to your manager who will validate it."
 msgstr "بمجرد إنشاء عهده، أرسلها لمديرك لاعتمادها."
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_hr_expense_sheet_advance_clearing
 msgid ""
 "Once you have created your expense, submit it to your manager who will\n"
@@ -205,82 +229,63 @@ msgstr ""
 "بمجرد إنشاء المصروف، أرسله لمديرك\n"
 " لاعتماده."
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.actions.act_window,help:hr_expense_advance_clearing.action_my_hr_expense_sheet
-msgid ""
-"Once you have created your expense, submit it to your manager who will "
-"validate it."
+msgid "Once you have created your expense, submit it to your manager who will validate it."
 msgstr "بمجرد إنشاء المصروف، أرسله لمديرك لاعتماده."
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.hr_expense_view_form
 msgid "Optional clearing product is used during clear advance"
 msgstr "يستخدم منتج تسوية اختياري أثناء تسوية العهده"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense__clearing_product_id
-msgid ""
-"Optional: On the clear advance, the clearing product will create default "
-"product line."
+msgid "Optional: On the clear advance, the clearing product will create default product line."
 msgstr "اختياري: في تسوية العهده، سيقوم منتج التسوية بإنشاء بند منتج افتراضي."
 
-#. module: hr_expense_advance_clearing
-#: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form_advance_workflow
-msgid "Pay Advance"
-msgstr "سداد العهده"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__amount_payable
 msgid "Payable Amount"
 msgstr "المبلغ المستحق للدفع"
 
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense_sheet__advance_payment_journal_id
-msgid "Payment Source (Bank/Cash)"
-msgstr "الدفع من"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model,name:hr_expense_advance_clearing.model_account_payment
 msgid "Payments"
-msgstr "الدفعات"
+msgstr "المدفوعات"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,field_description:hr_expense_advance_clearing.field_hr_expense__av_line_id
 msgid "Ref: Advance"
 msgstr "المرجع: عهده"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model,name:hr_expense_advance_clearing.model_account_payment_register
 msgid "Register Payment"
 msgstr "تسجيل الدفع"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_residual
 msgid "Remaining amount to clear the selected advance sheet"
 msgstr "المبلغ المتبقي لتسوية دفتر العهده المحدد"
 
-#. module: hr_expense_advance_clearing
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_account_payment_search
 #: model_terms:ir.ui.view,arch_db:hr_expense_advance_clearing.view_hr_expense_sheet_form
 msgid "Return Advance"
 msgstr "رد عهده"
 
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_payment_journal_id
-msgid "Select the bank or cash journal for the advance payment"
-msgstr "اختيار دفتر دفع العهده"
-
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__clearing_sheet_ids
 msgid "Show reference clearing on advance"
 msgstr "إظهار مرجع التسوية في العهده"
 
-#. module: hr_expense_advance_clearing
 #: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__advance_sheet_id
 msgid "Show remaining advance of this employee"
 msgstr "إظهار المتبقي من عهده هذا الموظف"
 
-#. module: hr_expense_advance_clearing
-#: model:ir.model.fields,help:hr_expense_advance_clearing.field_hr_expense_sheet__employee_journal_id
-msgid "The journal used when the expense is paid by employee."
-msgstr "دفتر اليومية المستخدم عندما يتم دفع النفقة من قِبَل الموظف."
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/models/account_move.py:0
+#, python-format
+msgid ""
+"This operation is not allowed as some advance amount was already cleared/returned.\n"
+"Please cancel those documents first."
+msgstr "هذه العملية غير مسموح بها لأنه تم تسوية/رد جزء من مبلغ العهده بالفعل."
+
+#. odoo-python
+#: code:addons/hr_expense_advance_clearing/wizard/account_payment_register.py:0
+#, python-format
+msgid "You cannot return advance more than actual remaining (%(symbol)s%(amount)s)%(more_info)s"
+msgstr ""
+"لا يمكنك رد مبلغ أكبر من المتبقي الفعلي من العهده\n"
+" (%(symbol)s%(amount)s)%(more_info)s"
