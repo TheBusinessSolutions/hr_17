@@ -89,7 +89,8 @@ class HrPayslip(models.Model):
             line_ids = []
             debit_sum = 0.0
             credit_sum = 0.0
-            name = _('Payslip of %s') % slip.employee_id.name
+            #name = _('Payslip of %s') % slip.employee_id.name
+            name = _('Payslip of') + ' ' + slip.employee_id.name
             move_dict = {
                 'narration': name,
                 'ref': slip.number,
