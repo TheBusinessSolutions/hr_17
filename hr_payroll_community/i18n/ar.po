@@ -24,7 +24,7 @@ msgstr "%s (نسخة)"
 
 #. module: hr_payroll_community
 msgid "Payslip of %s"
-msgstr "قسيمة راتب %s"
+msgstr ""
 
 #. module: hr_payroll_community
 msgid "('Payslip Details - %s' % (object.employee_id.name))"
