@@ -1,0 +1,356 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_payroll_community
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-01 10:47+0000\n"
+"PO-Revision-Date: 2026-03-01 13:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+
+#. module: hr_payroll_community
+msgid "%s (copy)"
+msgstr "%s (نسخة)"
+
+#. module: hr_payroll_community
+msgid "('Payslip Details - %s' % (object.employee_id.name))"
+msgstr "('تفاصيل قسيمة الراتب - %s' % (object.employee_id.name))"
+
+#. module: hr_payroll_community
+msgid "('Payslip Report - %s' % (object.employee_id.name))"
+msgstr "('تقرير قسيمة الراتب - %s' % (object.employee_id.name))"
+
+#. module: hr_payroll_community
+msgid ""
+"* When the payslip is created the status is 'Draft'\n"
+"                \n"
+"* If the payslip is under verification, \n"
+"                the status is 'Waiting'.\n"
+"                \n"
+"* If the payslip is confirmed then status is set to 'Done'.\n"
+"                \n"
+"* When user cancel payslip the status is 'Rejected'."
+msgstr ""
+"* عند إنشاء قسيمة الراتب تكون الحالة 'مسودة'.\n"
+"                \n"
+"* إذا كانت القسيمة قيد المراجعة والتدقيق، \n"
+"                تكون الحالة 'قيد الانتظار'.\n"
+"                \n"
+"* عند تأكيد القسيمة، تتحول الحالة إلى 'تم الانتهاء'.\n"
+"                \n"
+"* في حال إلغاء القسيمة من قبل المستخدم، تصبح الحالة 'مرفوضة'."
+
+#. module: hr_payroll_community
+msgid "<span class=\"o_form_label\">Payroll Rules</span>"
+msgstr "<span class=\"o_form_label\">قواعد الرواتب</span>"
+
+#. module: hr_payroll_community
+msgid ""
+"<span colspan=\"4\" nolabel=\"1\">This wizard will generate\n"
+"                        payslips for all selected employee(s) based on the\n"
+"                        dates\n"
+"                        and credit note specified on Payslips Run.\n"
+"                    </span>"
+msgstr ""
+"<span colspan=\"4\" nolabel=\"1\">سيقوم هذا المعالج بإنشاء\n"
+"                        قسائم الرواتب لكافة الموظفين المحددين بناءً على\n"
+"                        التواريخ\n"
+"                        وإشعارات الخصم المحددة في دفعة قسائم الرواتب.\n"
+"                    </span>"
+
+#. module: hr_payroll_community
+msgid "<span>/ month</span>"
+msgstr "<span>/ شهرياً</span>"
+
+#. module: hr_payroll_community
+msgid "<strong>Authorized signature</strong>"
+msgstr "<strong>التوقيع المعتمد</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Bank Account</strong>"
+msgstr "<strong>الحساب البنكي</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Date From:</strong>"
+msgstr "<strong>من تاريخ:</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Date From</strong>"
+msgstr "<strong>تاريخ البدء</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Date To:</strong>"
+msgstr "<strong>إلى تاريخ:</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Date To</strong>"
+msgstr "<strong>تاريخ الانتهاء</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Designation</strong>"
+msgstr "<strong>المسمى الوظيفي</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Email</strong>"
+msgstr "<strong>البريد الإلكتروني</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Identification No</strong>"
+msgstr "<strong>رقم الهوية / الإقامة</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Name</strong>"
+msgstr "<strong>الاسم</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Reference</strong>"
+msgstr "<strong>المرجع</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Register Name:</strong>"
+msgstr "<strong>اسم السجل:</strong>"
+
+#. module: hr_payroll_community
+msgid "<strong>Total</strong>"
+msgstr "<strong>الإجمالي</strong>"
+
+#. module: hr_payroll_community
+msgid "Account Accountant"
+msgstr "المحاسبة"
+
+#. module: hr_payroll_community
+msgid "Accounting"
+msgstr "المحاسبة"
+
+#. module: hr_payroll_community
+msgid "Accounting Information"
+msgstr "المعلومات المحاسبية"
+
+#. module: hr_payroll_community
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: hr_payroll_community
+msgid "Active"
+msgstr "نشط"
+
+#. module: hr_payroll_community
+msgid "Add a new contribution register"
+msgstr "إضافة سجل مساهمات جديد"
+
+#. module: hr_payroll_community
+msgid "Add an internal note..."
+msgstr "أضف ملاحظة داخلية..."
+
+#. module: hr_payroll_community
+msgid "All Children Rules"
+msgstr "كافة القواعد الفرعية"
+
+#. module: hr_payroll_community
+msgid "Allowance"
+msgstr "البدلات / التعويضات"
+
+#. module: hr_payroll_community
+msgid "Always True"
+msgstr "مطبق دائماً"
+
+#. module: hr_payroll_community
+msgid "Amount"
+msgstr "المبلغ"
+
+#. module: hr_payroll_community
+msgid "Amount Type"
+msgstr "نوع المبلغ"
+
+#. module: hr_payroll_community
+msgid "Annually"
+msgstr "سنوياً"
+
+#. module: hr_payroll_community
+msgid "Appears on Payslip"
+msgstr "يظهر في قسيمة الراتب"
+
+#. module: hr_payroll_community
+msgid "Basic"
+msgstr "الأساسي"
+
+#. module: hr_payroll_community
+msgid "Basic Salary"
+msgstr "الراتب الأساسي"
+
+#. module: hr_payroll_community
+msgid "Bi-monthly"
+msgstr "نصف شهري"
+
+#. module: hr_payroll_community
+msgid "Bi-weekly"
+msgstr "كل أسبوعين"
+
+#. module: hr_payroll_community
+msgid "Calculations"
+msgstr "الحسابات"
+
+#. module: hr_payroll_community
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: hr_payroll_community
+msgid "Cancel Payslip"
+msgstr "إلغاء قسيمة الراتب"
+
+#. module: hr_payroll_community
+msgid "Category"
+msgstr "الفئة"
+
+#. module: hr_payroll_community
+msgid "Child Rules"
+msgstr "القواعد التابعة"
+
+#. module: hr_payroll_community
+msgid "Choose Company"
+msgstr "اختر الشركة"
+
+#. module: hr_payroll_community
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: hr_payroll_community
+msgid "Code"
+msgstr "الكود / الرمز"
+
+#. module: hr_payroll_community
+msgid "Company"
+msgstr "الشركة"
+
+#. module: hr_payroll_community
+msgid "Company Contribution"
+msgstr "مساهمة الشركة"
+
+#. module: hr_payroll_community
+msgid "Computation"
+msgstr "طريقة الحساب"
+
+#. module: hr_payroll_community
+msgid "Compute Sheet"
+msgstr "احتساب المسودة"
+
+#. module: hr_payroll_community
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: hr_payroll_community
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: hr_payroll_community
+msgid "Contract"
+msgstr "العقد"
+
+#. module: hr_payroll_community
+msgid "Contribution Register"
+msgstr "سجل المساهمات"
+
+#. module: hr_payroll_community
+msgid "Deduction"
+msgstr "الاستقطاعات / الخصومات"
+
+#. module: hr_payroll_community
+msgid "Description"
+msgstr "الوصف"
+
+#. module: hr_payroll_community
+msgid "Done"
+msgstr "تم التأكيد / مكتمل"
+
+#. module: hr_payroll_community
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: hr_payroll_community
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: hr_payroll_community
+msgid "Employee Contract"
+msgstr "عقد الموظف"
+
+#. module: hr_payroll_community
+msgid "Employee Payslips"
+msgstr "قسائم رواتب الموظفين"
+
+#. module: hr_payroll_community
+msgid "Employees"
+msgstr "الموظفين"
+
+#. module: hr_payroll_community
+msgid "Error! You cannot create recursive hierarchy of Salary Rule Category."
+msgstr "خطأ! لا يمكنك إنشاء تدرج هرمي متداخل لفئات قواعد الرواتب."
+
+#. module: hr_payroll_community
+msgid "Error! You cannot create recursive hierarchy of Salary Rules."
+msgstr "خطأ! لا يمكنك إنشاء تدرج هرمي متداخل لقواعد الرواتب."
+
+#. module: hr_payroll_community
+msgid "Fixed Amount"
+msgstr "مبلغ ثابت"
+
+#. module: hr_payroll_community
+msgid "HRA"
+msgstr "بدل السكن"
+
+#. module: hr_payroll_community
+msgid "House Rent Allowance"
+msgstr "بدل إيجار السكن"
+
+#. module: hr_payroll_community
+msgid "Monthly"
+msgstr "شهرياً"
+
+#. module: hr_payroll_community
+msgid "Net"
+msgstr "الصافي"
+
+#. module: hr_payroll_community
+msgid "Net Salary"
+msgstr "صافي الراتب"
+
+#. module: hr_payroll_community
+msgid "Percentage (%)"
+msgstr "نسبة مئوية (%)"
+
+#. module: hr_payroll_community
+msgid "Python Code"
+msgstr "كود بايثون"
+
+#. module: hr_payroll_community
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: hr_payroll_community
+msgid "Salary Structure"
+msgstr "هيكل الرواتب"
+
+#. module: hr_payroll_community
+msgid "Waiting"
+msgstr "قيد الانتظار"
+
+#. module: hr_payroll_community
+msgid "Worked Days"
+msgstr "أيام العمل"
+
+#. module: hr_payroll_community
+msgid "You cannot delete a payslip which is not draft or cancelled!"
+msgstr "لا يمكنك حذف قسيمة راتب ما لم تكن في حالة المسودة أو ملغاة!"
+
+#. module: hr_payroll_community
+msgid "You must select employee(s) to generate payslip(s)."
+msgstr "يجب عليك تحديد موظف واحد على الأقل لإنشاء قسائم الرواتب."
