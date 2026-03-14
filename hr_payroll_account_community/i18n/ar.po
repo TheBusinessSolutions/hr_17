@@ -98,7 +98,7 @@ msgstr "بند المرتب"
 #: code:addons/hr_payroll_account_community/models/hr_payroll_account_community.py:65
 #, python-format
 msgid "Payslip of %s"
-msgstr "قسيمة مرتب لـ %s"
+msgstr "قسيمة مرتب %s"
 
 #. module: hr_payroll_account_community
 #: model:ir.model.fields,field_description:hr_payroll_account_community.field_hr_contract__journal_id

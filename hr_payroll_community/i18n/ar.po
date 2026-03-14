@@ -549,3 +549,13 @@ msgstr "الشرط بناءً على"
 #: model_terms:ir.ui.view,arch_db:hr_payroll_community.hr_salary_rule_view_form
 msgid "Conditions"
 msgstr "الشروط"
+
+#. module: hr_payroll_community
+#: model:ir.ui.menu,name:hr_payroll_community.menu_hr_payroll_community_root
+msgid "Payroll"
+msgstr "المرتبات"
+
+#. module: hr_payroll_community
+#: model:ir.ui.menu,name:hr_payroll_community.menu_hr_payroll_community_main
+msgid "Payroll"
+msgstr "المرتبات"
