@@ -89,6 +89,14 @@ class HrExpenseSheet(models.Model):
         """
         res = super()._compute_from_account_move_ids()
         for sheet in self:
+            if sheet.advance and not sheet.advance_sheet_id and sheet.account_move_ids.filtered(
+                lambda move: move.state == "posted"
+            ):
+                # Advance sheets are already paid to the employee when their
+                # payment entry is posted. The residual then represents the
+                # amount left to clear, not an unpaid balance.
+                sheet.payment_state = "paid"
+                continue
             if (
                 sheet.advance_sheet_id
                 and sheet.account_move_ids.state == "posted"
