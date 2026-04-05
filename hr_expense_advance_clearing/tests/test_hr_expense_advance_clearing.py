@@ -322,3 +322,24 @@ class TestHrExpenseAdvanceClearing(TestExpenseCommon):
             cancel=True,
         )
         self.assertNotEqual(reverse_move, self.advance.account_move_ids)
+
+    def test_5_clearing_product_amount_is_editable(self):
+        """Generated clearing lines must not lock the user into advance amount."""
+        self.advance.expense_line_ids.clearing_product_id = self.product_a
+        self.advance.action_submit_sheet()
+        self.advance.action_approve_expense_sheets()
+        self.advance.action_sheet_move_create()
+        self._register_payment(self.advance.account_move_ids, 1000.0)
+
+        with Form(self.env["hr.expense.sheet"]) as sheet:
+            sheet.name = "Editable Clearing Amount"
+            sheet.employee_id = self.expense_employee
+            sheet.advance_sheet_id = self.advance
+            with sheet.expense_line_ids.edit(0) as line:
+                self.assertEqual(line.product_id, self.product_a)
+                self.assertEqual(line.total_amount_currency, 0.0)
+                line.total_amount_currency = 2000.0
+        ex_sheet = sheet.save()
+
+        self.assertEqual(ex_sheet.expense_line_ids.product_id, self.product_a)
+        self.assertEqual(ex_sheet.expense_line_ids.total_amount_currency, 2000.0)

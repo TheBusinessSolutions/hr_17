@@ -456,6 +456,16 @@ class HrExpenseSheet(models.Model):
         del_cols += list(self.env["mail.thread"]._fields.keys())
         del_cols += list(self.env["mail.activity.mixin"]._fields.keys())
         del_cols += list(clear_line_dict.keys())
+        del_cols += [
+            "price_unit",
+            "quantity",
+            "total_amount",
+            "total_amount_company",
+            "total_amount_currency",
+            "tax_amount",
+            "tax_amount_company",
+            "tax_amount_currency",
+        ]
         del_cols = list(set(del_cols))
         adv_dict = {k: v for k, v in adv_dict.items() if k not in del_cols}
         # Assign the known value from original advance line
