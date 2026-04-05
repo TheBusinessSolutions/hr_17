@@ -70,7 +70,19 @@ class AccountPaymentRegister(models.TransientModel):
                 self._context.get("active_ids", [])
             )
 
-        expense_sheet = lines.expense_id.sheet_id
+        # Custom advance payments may create move lines without expense_id,
+        # so fall back to the sheet linked on the journal entry itself.
+        expense_sheet = (
+            lines.expense_id.sheet_id
+            or lines.move_id.expense_sheet_id
+        )
+        if not expense_sheet:
+            raise UserError(
+                _(
+                    "Unable to determine the related expense sheet for this "
+                    "advance return."
+                )
+            )
         emp_advance = self._get_product_advance()
         advance_account = emp_advance.property_account_expense_id
         # Create return advance and post it
