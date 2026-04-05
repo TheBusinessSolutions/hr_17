@@ -126,6 +126,7 @@
                     readonly="1"
                     force_save="1"
                 />
+                <field name="av_line_id" invisible="1" />
                 <label for="advance" invisible="not context.get('default_advance')" />
             </h1>
             <field name="product_id" position="attributes">
