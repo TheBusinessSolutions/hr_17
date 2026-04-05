@@ -470,6 +470,12 @@ class HrExpenseSheet(models.Model):
         adv_dict = {k: v for k, v in adv_dict.items() if k not in del_cols}
         # Assign the known value from original advance line
         clear_line.update(adv_dict)
+        # Keep editable pricing inputs on the generated clearing line so
+        # unit price can be saved and the amount fields can recompute.
+        clear_line.price_unit = line.price_unit
+        clear_line.quantity = line.quantity or 1.0
+        if hasattr(clear_line, "_compute_amount"):
+            clear_line._compute_amount()
         clearing_dict = clear_line._convert_to_write(clear_line._cache)
         # Convert list of int to [(6, 0, list)]
         clearing_dict = {
