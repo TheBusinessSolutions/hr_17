@@ -443,7 +443,9 @@ class HrExpenseSheet(models.Model):
             "date": fields.Date.context_today(self),
             "account_id": False,
             "state": "draft",
-            "product_uom_id": False,
+            "product_uom_id": (
+                line.clearing_product_id.uom_id.id or line.product_uom_id.id
+            ),
             "av_line_id": line.id,
         }
         clear_line = self.env["hr.expense"].new(clear_line_dict)
@@ -473,7 +475,7 @@ class HrExpenseSheet(models.Model):
         # Keep editable pricing inputs on the generated clearing line so
         # unit price can be saved and the amount fields can recompute.
         clear_line.price_unit = line.price_unit
-        clear_line.quantity = line.quantity or 1.0
+        clear_line.quantity = 1.0
         if hasattr(clear_line, "_compute_amount"):
             clear_line._compute_amount()
         clearing_dict = clear_line._convert_to_write(clear_line._cache)
