@@ -29,6 +29,50 @@ class HrExpense(models.Model):
     def _get_product_advance(self):
         return self.env.ref("hr_expense_advance_clearing.product_emp_advance", False)
 
+    def _normalize_clearing_line_vals(self, vals):
+        if not vals.get("av_line_id"):
+            return vals
+        vals = dict(vals)
+        av_line = self.env["hr.expense"].browse(vals["av_line_id"])
+        clearing_product = (
+            self.env["product.product"].browse(vals["product_id"])
+            if vals.get("product_id")
+            else av_line.clearing_product_id or av_line.product_id
+        )
+        if clearing_product and not vals.get("product_id"):
+            vals["product_id"] = clearing_product.id
+        if clearing_product and not vals.get("name"):
+            vals["name"] = clearing_product.display_name
+        if not vals.get("product_uom_id"):
+            vals["product_uom_id"] = (
+                clearing_product.uom_id.id or av_line.product_uom_id.id
+            )
+        if not vals.get("quantity"):
+            vals["quantity"] = 1.0
+        return vals
+
+    def _recompute_clearing_amounts(self):
+        clearing_lines = self.filtered("av_line_id")
+        if not clearing_lines:
+            return
+        if hasattr(clearing_lines, "_compute_account_id"):
+            clearing_lines._compute_account_id()
+        if hasattr(clearing_lines, "_compute_amount"):
+            clearing_lines._compute_amount()
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        vals_list = [self._normalize_clearing_line_vals(vals) for vals in vals_list]
+        expenses = super().create(vals_list)
+        expenses._recompute_clearing_amounts()
+        return expenses
+
+    def write(self, vals):
+        vals = self._normalize_clearing_line_vals(vals)
+        res = super().write(vals)
+        self._recompute_clearing_amounts()
+        return res
+
     @api.constrains("advance")
     def _check_advance(self):
         for expense in self.filtered("advance"):
